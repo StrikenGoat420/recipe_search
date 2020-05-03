@@ -4,8 +4,10 @@ from elasticsearch import Elasticsearch
 from flask import Flask, request
 import re
 
+mongo_username = 'add username here'
+mongo_password = 'add password here'
 #mongodb connection setup
-mongouri = "mongodb+srv://shubham:MongoUser@cluster0-dv5i4.mongodb.net/test?retryWrites=true&w=majority"
+mongouri = "mongodb+srv://"+mongo_username+":"+mongo_password+"@cluster0-dv5i4.mongodb.net/test?retryWrites=true&w=majority"
 client = MongoClient(mongouri)
 db = client.Pakalo
 collection = db.Recipes
