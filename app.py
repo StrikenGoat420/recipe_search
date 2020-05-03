@@ -1,11 +1,11 @@
 from pymongo import MongoClient
 from datetime import datetime
 from elasticsearch import Elasticsearch
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import re
 
-mongo_username = 'shubham'
-mongo_password = 'MongoUser'
+mongo_username = 'add_username_here'
+mongo_password = 'add_password_here'
 #mongodb connection setup
 mongouri = "mongodb+srv://"+mongo_username+":"+mongo_password+"@cluster0-dv5i4.mongodb.net/test?retryWrites=true&w=majority"
 client = MongoClient(mongouri)
@@ -39,22 +39,18 @@ def ingredients():
         if total_ingredients == avail_ingredients:
             recipes_to_make.append(recipes["recipe_name"])
 
-    json_response = {"recipe_name" : "", "picture_link" : ""}
-    all_response = []
+    #json_response = {"recipe_name" : "", "picture_link" : ""}
+    all_response = {}
 
     for i in range(len(recipes_to_make)):
-        all_response.append(json_response)
-
-
-    for i in range(len(all_response)):
-        all_response[i]['recipe_name'] = recipes_to_make[i]
-        print('recipe which was appended is ' +str(recipes_to_make[i]))
+        r_name = recipes_to_make[i]
+        picture_link = ""
         for items in all_recipes:
-            if items['recipe_name'] == recipes_to_make[i]:
-                all_response[i]["picture_link"] = items["picture_link"]
+            if items['recipe_name'] == r_name:
+                picture_link = items["picture_link"]
+        json_response_value = {"recipe_name" : r_name, "picture_link" : picture_link}
+        all_response[i] = json_response_value
 
-    for elements in all_response:
-        print(elements)
+    json_response = jsonify(all_response)
 
-
-    return 'Try making ' +str(list(recipes_to_make))
+    return json_response
