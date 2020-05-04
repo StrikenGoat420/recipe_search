@@ -25,3 +25,27 @@ doc = {
 res = es.index(index="test-index", id=1, body=doc)
 #print(res['result'])
 '''
+
+#cursor = collection.find({ "ingredients": {"$in": params } }, {"_id" : 0, "ingredients" : 1, "picture_link" : 1})
+
+
+'''
+    for i in range(len(recipes_to_make)):
+        all_response.append(json_response)
+
+    for i in range(len(all_response)):
+        r_name = recipes_to_make[i]
+        picture_link = ""
+        for items in all_recipes:
+            if items['recipe_name'] == r_name:
+                picture_link = items["picture_link"]
+        print("after iteration i " +str(i))
+        print("\n picture link is " + picture_link)
+        print("\n r_name is " +r_name)
+        all_response[i]["recipe_name"] = r_name
+        all_response[i]["picture_link"] = picture_link
+        print("\n values inside dictionary are " )
+        for ele in all_response:
+            print(ele)
+        print()
+'''
