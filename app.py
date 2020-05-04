@@ -8,8 +8,8 @@ import re
 #/ingredients/?arg1=Lentils+Water+Tomato+Cottage_Cheese+Milk
 #/recipe/Dal
 
-mongo_username = 'add_username_here'
-mongo_password = 'add_password_here'
+mongo_username = 'shubham'
+mongo_password = 'MongoUser'
 #mongodb connection setup
 mongouri = "mongodb+srv://"+mongo_username+":"+mongo_password+"@cluster0-dv5i4.mongodb.net/test?retryWrites=true&w=majority"
 client = MongoClient(mongouri)
@@ -64,7 +64,4 @@ def get_recipeInfo (recipe_name):
     recipe_name = recipe_name.replace('_', ' ')
     cursor = collection.find({ "recipe_name": recipe_name}, {"_id" : 0})
     resp = list(cursor)
-    for el in resp:
-        print(el)
-        print(type(el))
     return jsonify(resp)
