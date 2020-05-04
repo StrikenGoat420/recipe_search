@@ -8,8 +8,8 @@ import re
 #/ingredients/?arg1=Lentils+Water+Tomato+Cottage_Cheese+Milk
 #/recipe/Dal
 
-mongo_username = 'shubham'
-mongo_password = 'MongoUser'
+mongo_username = 'add_username_here'
+mongo_password = 'add_password_here'
 #mongodb connection setup
 mongouri = "mongodb+srv://"+mongo_username+":"+mongo_password+"@cluster0-dv5i4.mongodb.net/test?retryWrites=true&w=majority"
 client = MongoClient(mongouri)
