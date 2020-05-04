@@ -4,8 +4,12 @@ from elasticsearch import Elasticsearch
 from flask import Flask, request, jsonify
 import re
 
-mongo_username = 'add_username_here'
-mongo_password = 'add_password_here'
+#append to url
+#/ingredients/?arg1=Lentils+Water+Tomato+Cottage_Cheese+Milk
+#/recipe/Dal
+
+mongo_username = 'shubham'
+mongo_password = 'MongoUser'
 #mongodb connection setup
 mongouri = "mongodb+srv://"+mongo_username+":"+mongo_password+"@cluster0-dv5i4.mongodb.net/test?retryWrites=true&w=majority"
 client = MongoClient(mongouri)
@@ -15,7 +19,7 @@ collection = db.Recipes
 app = Flask(__name__)
 
 @app.route('/ingredients/')
-def ingredients():
+def suggest_recipes():
     arg1 = request.args['arg1']
     params = arg1.split()
     for i in range(len(params)):
@@ -54,3 +58,13 @@ def ingredients():
     json_response = jsonify(all_response)
 
     return json_response
+
+@app.route('/recipe/<recipe_name>')
+def get_recipeInfo (recipe_name):
+    recipe_name = recipe_name.replace('_', ' ')
+    cursor = collection.find({ "recipe_name": recipe_name}, {"_id" : 0})
+    resp = list(cursor)
+    for el in resp:
+        print(el)
+        print(type(el))
+    return jsonify(resp)
